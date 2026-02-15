@@ -11,19 +11,30 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 
 # ------------------------------
-# Load Dataset (NO sep=';')
+# 1️⃣ Load Dataset
 # ------------------------------
 
 data = pd.read_csv("dataset/winequalityN.csv")
 
-# Remove extra spaces in column names
+# Clean column names
 data.columns = data.columns.str.strip()
 
 print("Columns:", data.columns)
 
 
 # ------------------------------
-# Separate Features & Target
+# 2️⃣ Remove Categorical Columns (like 'type')
+# ------------------------------
+
+# Keep only numeric columns
+data = data.select_dtypes(include=[np.number])
+
+# Remove missing values if any
+data = data.dropna()
+
+
+# ------------------------------
+# 3️⃣ Separate Features & Target
 # ------------------------------
 
 target_column = "quality"
@@ -33,7 +44,7 @@ y = data[target_column]
 
 
 # ------------------------------
-# Train-Test Split
+# 4️⃣ Train-Test Split
 # ------------------------------
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -45,7 +56,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 
 # ------------------------------
-# Scaling
+# 5️⃣ Scaling
 # ------------------------------
 
 scaler = StandardScaler()
@@ -55,17 +66,22 @@ X_test_scaled = scaler.transform(X_test)
 
 
 # ------------------------------
-# Model
+# 6️⃣ Train Model
 # ------------------------------
 
 model = LinearRegression()
 model.fit(X_train_scaled, y_train)
 
+
+# ------------------------------
+# 7️⃣ Prediction
+# ------------------------------
+
 y_pred = model.predict(X_test_scaled)
 
 
 # ------------------------------
-# Metrics
+# 8️⃣ Metrics
 # ------------------------------
 
 mse = mean_squared_error(y_test, y_pred)
@@ -76,7 +92,7 @@ print(f"R2 Score: {r2}")
 
 
 # ------------------------------
-# Save Output
+# 9️⃣ Save Outputs
 # ------------------------------
 
 os.makedirs("output", exist_ok=True)

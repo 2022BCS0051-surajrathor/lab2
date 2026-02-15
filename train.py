@@ -8,7 +8,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
 
 # Load dataset
-data = pd.read_csv("dataset/winequality.csv")
+data = pd.read_csv("dataset/winequalityN.csv")
 
 X = data.drop("quality", axis=1)
 y = data["quality"]

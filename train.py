@@ -11,47 +11,29 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 
 # ------------------------------
-# 1️⃣ Load Dataset
+# Load Dataset (NO sep=';')
 # ------------------------------
 
-data = pd.read_csv("dataset/winequalityN.csv", sep=';')
+data = pd.read_csv("dataset/winequalityN.csv")
 
-# Remove spaces from column names
+# Remove extra spaces in column names
 data.columns = data.columns.str.strip()
 
-print("Columns in dataset:", data.columns)
+print("Columns:", data.columns)
 
 
 # ------------------------------
-# 2️⃣ Keep Only Numeric Columns
+# Separate Features & Target
 # ------------------------------
 
-data = data.select_dtypes(include=['number'])
-
-
-# ------------------------------
-# 3️⃣ Detect Target Column Automatically
-# ------------------------------
-
-if "quality" in data.columns:
-    target_column = "quality"
-else:
-    # If column name slightly different
-    target_column = data.columns[-1]  # Assume last column is target
-
-print("Target column used:", target_column)
-
-
-# ------------------------------
-# 4️⃣ Separate Features & Target
-# ------------------------------
+target_column = "quality"
 
 X = data.drop(target_column, axis=1)
 y = data[target_column]
 
 
 # ------------------------------
-# 5️⃣ Train-Test Split
+# Train-Test Split
 # ------------------------------
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -63,7 +45,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 
 # ------------------------------
-# 6️⃣ Feature Scaling
+# Scaling
 # ------------------------------
 
 scaler = StandardScaler()
@@ -73,22 +55,17 @@ X_test_scaled = scaler.transform(X_test)
 
 
 # ------------------------------
-# 7️⃣ Model Training
+# Model
 # ------------------------------
 
 model = LinearRegression()
 model.fit(X_train_scaled, y_train)
 
-
-# ------------------------------
-# 8️⃣ Prediction
-# ------------------------------
-
 y_pred = model.predict(X_test_scaled)
 
 
 # ------------------------------
-# 9️⃣ Evaluation Metrics
+# Metrics
 # ------------------------------
 
 mse = mean_squared_error(y_test, y_pred)
@@ -99,22 +76,12 @@ print(f"R2 Score: {r2}")
 
 
 # ------------------------------
-# 🔟 Create Output Directory
+# Save Output
 # ------------------------------
 
 os.makedirs("output", exist_ok=True)
 
-
-# ------------------------------
-# 1️⃣1️⃣ Save Model
-# ------------------------------
-
 joblib.dump(model, "output/model.pkl")
-
-
-# ------------------------------
-# 1️⃣2️⃣ Save Results JSON
-# ------------------------------
 
 results = {
     "MSE": float(mse),

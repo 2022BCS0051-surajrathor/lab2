@@ -15,7 +15,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 # ------------------------------
 
 # If using red wine dataset
-data = pd.read_csv("dataset/winequality-red.csv", sep=';')
+data = pd.read_csv("dataset/winequalityN.csv", sep=';')
 
 # If your file name is different, change it above
 

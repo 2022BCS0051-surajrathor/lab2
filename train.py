@@ -25,7 +25,7 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-model = Lasso(alpha=0.1)
+model = Lasso(alpha=1.0)
 model.fit(X_train_scaled, y_train)
 
 y_pred = model.predict(X_test_scaled)
@@ -33,7 +33,7 @@ y_pred = model.predict(X_test_scaled)
 mse = mean_squared_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
-print("Experiment 2 - Lasso alpha 0.1")
+print("Experiment 3 - Lasso alpha 1.0")
 print(f"MSE: {mse}")
 print(f"R2 Score: {r2}")
 

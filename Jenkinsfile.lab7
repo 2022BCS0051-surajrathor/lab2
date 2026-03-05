@@ -17,12 +17,13 @@ pipeline {
         }
 
         stage('Run Container') {
-            steps {
-                sh '''
-                docker run -d -p 8000:8000 --name $CONTAINER $IMAGE
-                '''
-            }
-        }
+    steps {
+        sh '''
+        docker rm -f wine_test_container || true
+        docker run -d -p 8000:8000 --name wine_test_container suraj4466/wine_predict_2022bcs0051:latest
+        '''
+    }
+}
 
         stage('Wait for Service') {
             steps {

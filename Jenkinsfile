@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git credentialsId: 'git-creds',
-                url: 'https://github.com/surajrathor/lab4.git'
+                url: 'https://github.com/2022BCS0051-surajrathor/lab2.git'
             }
         }
 

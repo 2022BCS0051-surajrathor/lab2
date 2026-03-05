@@ -20,7 +20,7 @@ pipeline {
     steps {
         sh '''
         docker rm -f wine_test_container || true
-        docker run -d -p 8000:8000 --name wine_test_container suraj4466/wine_predict_2022bcs0051:latest
+        docker run -d -p 9000:8000 --name wine_test_container suraj4466/wine_predict_2022bcs0051:latest
         '''
     }
 }

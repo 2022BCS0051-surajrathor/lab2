@@ -42,3 +42,18 @@ joblib.dump(model, "output/model.pkl")
 
 with open("output/results.json", "w") as f:
     json.dump({"MSE": float(mse), "R2": float(r2)}, f, indent=4)
+
+
+
+# Create artifacts folder
+os.makedirs("app/artifacts", exist_ok=True)
+
+# Save metrics
+metrics = {
+    "accuracy": float(r2)
+}
+
+with open("app/artifacts/metrics.json", "w") as f:
+    json.dump(metrics, f)
+
+print("Metrics saved successfully")

@@ -26,12 +26,19 @@ pipeline {
 }
 
         stage('Wait for Service') {
-            steps {
-                sh '''
-                sleep 15
-                '''
-            }
-        }
+    steps {
+        sh '''
+        echo "Waiting for API..."
+        for i in {1..20}; do
+            if curl -s http://localhost:9000/docs > /dev/null; then
+                echo "API is ready!"
+                break
+            fi
+            sleep 3
+        done
+        '''
+    }
+}
 
         stage('Valid Inference Request') {
             steps {

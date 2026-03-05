@@ -8,11 +8,12 @@ pipeline {
     stages {
 
         stage('Checkout') {
-            steps {
-                git credentialsId: 'git-creds',
-                url: 'https://github.com/2022BCS0051-surajrathor/lab2.git'
-            }
-        }
+    steps {
+        git branch: 'main',
+        credentialsId: 'git-creds',
+        url: 'https://github.com/2022BCS0051-surajrathor/lab2.git'
+    }
+}
 
         stage('Setup Python Virtual Environment') {
             steps {
